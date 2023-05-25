@@ -17,6 +17,7 @@ app.use(express.json());
 app.get("/", )
 app.use("/", Routers);
 
+
 // sequelize
 //   .sync({ force: false }) //true면 서버 실행마다 테이블 재생성
 //   .then(() => {

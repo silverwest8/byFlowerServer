@@ -7,5 +7,4 @@ import user from './user.js';
 
 router.use('/users', user);
 
-
 export default router;
