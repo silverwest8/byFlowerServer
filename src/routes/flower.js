@@ -81,6 +81,7 @@ router.get('/mylist', async (req, res) => {
       where: {
         USER_ID: userId,
       },
+      order: [['FLOWER_ID', 'ASC']],
     });
     console.log(myflower);
     for (let i = 0; i < myflower.length; i++) {
@@ -93,32 +94,11 @@ router.get('/mylist', async (req, res) => {
       .json({ success: true, message: '좋아요 한 꽃 리스트 조회 성공', list });
   } catch (error) {
     console.error(error);
-    return res
-      .status(400)
-      .json({
-        success: false,
-        message: '좋아요 한 꽃 리스트 조회 실패',
-        error,
-      });
-  }
-});
-
-//회원 탈퇴
-router.delete('/', async (req, res) => {
-  try {
-    console.log(req.query.id);
-    const user = await db.USER.destroy({
-      where: {
-        ID: req.query.id,
-      },
+    return res.status(400).json({
+      success: false,
+      message: '좋아요 한 꽃 리스트 조회 실패',
+      error,
     });
-    console.log(user);
-    return res.status(200).json({ success: true, message: '회원탈퇴 성공' });
-  } catch (error) {
-    console.error(error);
-    return res
-      .status(400)
-      .json({ success: false, message: '회원탈퇴 실패', error });
   }
 });
 

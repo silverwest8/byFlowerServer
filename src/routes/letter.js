@@ -6,11 +6,9 @@ import { db } from '../models/index.js';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
-// import axios from "axios";
 dotenv.config();
 
 const router = express.Router();
-
 const __dirname = path.resolve();
 
 // 파일 업로드를 위해 사용되는 multipart/form-data 를 front에서 사용할것
@@ -42,7 +40,22 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/'); // 파일이 업로드되는 경로 지정
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname); // 파일 이름 설정
+    const date = new Date();
+    date.toLocaleDateString('ko-KR'); // 한국 시간 설정
+    cb(
+      null,
+      `${date.getFullYear()}${
+        date.getMonth() + 1 >= 10
+          ? date.getMonth() + 1
+          : `0${date.getMonth() + 1}`
+      }${date.getDate() >= 10 ? date.getDate() : `0${date.getDate()}`}${
+        date.getHours() >= 10 ? date.getHours() : `0${date.getHours()}`
+      }${
+        date.getMinutes() >= 10 ? date.getMinutes() : `0${date.getMinutes()}`
+      }${
+        date.getSeconds() >= 10 ? date.getSeconds() : `0${date.getSeconds()}`
+      }_${file.originalname}`
+    ); // 파일 이름 설정
   },
 });
 const upload = multer({
