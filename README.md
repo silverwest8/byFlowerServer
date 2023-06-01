@@ -6,7 +6,7 @@
 
 > Node.js(Express.js) 사용
 
-
+    nvm install node
 
     pm2 start ecosystem.config.cjs --only byflower
 
